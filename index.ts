@@ -5,18 +5,54 @@
  */
 import { ZsfConstructorOptions, ZsfInterface } from "./interface"
 import Init from "./init"
-import { Injectable } from "./loader"
-import Koa from "koa2"
-
+import Loader from "./loader"
+import Koa from "koa"
+import koaBodyparser from "koa-bodyparser"
+import { resolve } from "path"
 export default class Zsf implements ZsfInterface {
-  koa: Koa
+  private koa: Koa
+  private dir: string
   constructor(options?: ZsfConstructorOptions) {
-    new Init(process.cwd())
+    this.dir = process.cwd()
+    new Init(this.dir)
     this.koa = new Koa()
+    this.koa.use(koaBodyparser())
+    /**
+     * @description
+     * 前置初始化函数调用点
+     */
+    if (options && options.beforeInit) options.beforeInit(this.koa)
+    /**
+     * loader对象处理当前目录文件的装饰器
+     */
+    const loader = new Loader({
+      folder: resolve(this.dir, "."),
+      rootFolder: resolve(this.dir, "."),
+      options: { ...options, app: this }
+    })
+    /**
+     * loader后，载入所有中间件
+     */
+    loader.middlewares.forEach(mid => {
+      this.koa.use(mid)
+    })
+    /**
+     * loader后，载入router
+     */
+    this.koa.use(loader.router.routes())
+    /**
+     * @description
+     * 后置初始化数据调用点（异步）
+     */
+    process.nextTick(() => {
+      if (options && options.afterInit) options.afterInit(this.koa)
+    })
   }
-  start(port: number = 3000, callBack?: Function): void {
+  public start(port: number = 3000, callBack: Function = () => {
+    console.log(`\n\x1B[33m\x1B[1mstart on port: ${port}\x1B[0m`)
+  }): void {
     this.koa.listen(port, () => {
-      callBack ? callBack() : console.log(`Start on port ${port}`)
+      callBack && callBack()
       console.log(`\x1B[32m
 ┌───────────────┐
 │ start success │

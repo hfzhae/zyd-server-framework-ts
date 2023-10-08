@@ -1,11 +1,20 @@
 {
   "name": "zyd-server-framework-ts",
   "version": "0.0.4",
+  "description": "基于bun,koa的server端框架，使用TS语言",
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --hot main.ts"
+    "dev": "bun --watch main.ts"
   },
+  "keywords": [
+    "bun",
+    "bunjs",
+    "koa"
+  ],
+  "author": "zhangzheng",
+  "license": "MIT",
+  "homepage": "https://www.npmjs.com/package/zyd-server-framework-ts",
   "devDependencies": {
     "bun-types": "latest"
   },
@@ -13,6 +22,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "koa2": "^2.0.0-alpha.7"
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.0"
   }
 }

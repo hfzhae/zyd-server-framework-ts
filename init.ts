@@ -10,5 +10,5 @@ export default class Init {
 `)
     this.createExamplesConfigFile(dir)
   }
-  createExamplesConfigFile(dir: string): void { }
+  private createExamplesConfigFile(dir: string): void { }
 }
