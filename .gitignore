@@ -176,3 +176,5 @@ dist
 
 main.ts
 bun.lockb
+build
+examples

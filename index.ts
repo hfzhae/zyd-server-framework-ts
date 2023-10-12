@@ -1,11 +1,12 @@
 /**
  * @copyright Powered by zydsoft®. All rights reserved.
  * @since 2023-10-7
- * @author zhangzheng
+ * @author ZhangZheng
  */
 import { ZsfConstructorOptions, ZsfInterface } from "./interface"
 import Init from "./init"
 import Loader from "./loader"
+import { router, middlewares, Service, Controller, Get, GeneralClass } from "./loader"
 import Koa from "koa"
 import koaBodyparser from "koa-bodyparser"
 import { resolve } from "path"
@@ -33,13 +34,13 @@ export default class Zsf implements ZsfInterface {
     /**
      * loader后，载入所有中间件
      */
-    loader.middlewares.forEach(mid => {
+    middlewares.forEach(mid => {
       this.koa.use(mid)
     })
     /**
      * loader后，载入router
      */
-    this.koa.use(loader.router.routes())
+    this.koa.use(router.routes())
     /**
      * @description
      * 后置初始化数据调用点（异步）
@@ -60,4 +61,7 @@ export default class Zsf implements ZsfInterface {
 \x1B[0m`)
     })
   }
+}
+export {
+  Service, Controller, Get, GeneralClass
 }
