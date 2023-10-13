@@ -23,8 +23,8 @@ bun add zyd-server-framework-ts
 > index.ts
 
 ```ts
-import zsf from "zyd-server-framework-ts"
-const app = new zsf()
+import Zsf from "zyd-server-framework-ts"
+const app = new Zsf()
 app.start()
 ```
 ```bash
