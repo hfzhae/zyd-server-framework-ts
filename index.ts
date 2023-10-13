@@ -6,7 +6,7 @@
 import { ZsfConstructorOptions, ZsfInterface } from "./interface"
 import Init from "./init"
 import Loader from "./loader"
-import { router, middlewares, Service, Model, Config, DataBase, Plugin, Middleware, Schedule, Controller, Head, Opitons, Get, Put, Patch, Post, Delete, GeneralClass } from "./loader"
+import { Service, Model, Config, DataBase, Plugin, Middleware, Schedule, Controller, Head, Opitons, Get, Put, Patch, Post, Delete, GeneralClass } from "./loader"
 import Koa from "koa"
 import koaBodyparser from "koa-bodyparser"
 import { resolve } from "path"
@@ -34,13 +34,13 @@ export default class Zsf implements ZsfInterface {
     /**
      * loader后，载入所有中间件
      */
-    middlewares.forEach(mid => {
+    loader.middlewares.forEach(mid => {
       this.koa.use(mid)
     })
     /**
      * loader后，载入router
      */
-    this.koa.use(router.routes())
+    this.koa.use(loader.router.routes())
     /**
      * @description
      * 后置初始化数据调用点（异步）
