@@ -5,16 +5,6 @@
 ```bash
 bun init -y
 ```
->tsconfig.json
-```json
-{
-  "compilerOptions": {
-    ...
-    "experimentalDecorators": true,
-    ...
-  }
-}
-```
 ```bash
 bun add zyd-server-framework-ts
 ```

@@ -5,6 +5,29 @@ export default class Examples {
    * @param {String} dir 默认路径 
    */
   public createExamplesFile(dir: string): void {
+    fs.writeFileSync(dir + "/tsconfig.json", `{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "composite": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "types": [
+      "bun-types" // add Bun global
+    ]
+  }
+}`)
     dir += "/examples"
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir)
@@ -45,59 +68,59 @@ class User {
   }
 }`)
     }
-//     if (!fs.existsSync(dir + "/dataBase.ts")) {
-//       fs.writeFileSync(dir + "/dataBase.ts", `import { DataBase } from "zyd-server-framework-ts"
-// import mongoose from "mongoose"
-// @DataBase()
-// class Mongo {
-//   prod: any
-//   test: any
-//   constructor() {
-//     this.prod = mongoose.createConnection("mongodb://127.0.0.1:27017?replicaSet=rs0", {
-//       // useCreateIndex: true,
-//       // useFindAndModify: false,
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//       dbName: "prodDb"
-//     })
-//     this.prod.on("connected", () => {
-//       console.log('mongodb connect prod success')
-//     })
-//     this.prod.on("error", () => {
-//       console.log('mongodb connect prod error')
-//     })
-//     this.prod.on("disconnected", () => {
-//       console.log('mongodb connect prod disconnected')
-//     })
-//     this.test = mongoose.createConnection("mongodb://127.0.0.1:27017?replicaSet=rs0", {
-//       // useCreateIndex: true,
-//       // useFindAndModify: false,
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//       dbName: "testDb"
-//     })
-//     this.test.on("connected", () => {
-//       console.log('mongodb connect test success')
-//     })
-//     this.test.on("error", () => {
-//       console.log('mongodb connect test error')
-//     })
-//     this.test.on("disconnected", () => {
-//       console.log('mongodb connect test disconnected')
-//     })
-//   }
-//   async mongoSession (dataBase) {
-//     const session = await dataBase.startSession({
-//       readPreference: { mode: 'primary' }, //只从主节点读取，默认值。
-//     })
-//     await session.startTransaction({
-//       readConcern: { level: 'majority' }, //读取在大多数节点上提交完成的数据。level:"snapshot"读取最近快照中的数据。
-//       writeConcern: { w: 'majority' }, //大多数节点成功原则，例如一个复制集 3 个节点，2 个节点成功就认为本次写入成功。 w:"all"所以节点都成功，才认为写入成功，效率较低。
-//     })
-//     return session
-//   }
-// }`)
-//     }
+    //     if (!fs.existsSync(dir + "/dataBase.ts")) {
+    //       fs.writeFileSync(dir + "/dataBase.ts", `import { DataBase } from "zyd-server-framework-ts"
+    // import mongoose from "mongoose"
+    // @DataBase()
+    // class Mongo {
+    //   prod: any
+    //   test: any
+    //   constructor() {
+    //     this.prod = mongoose.createConnection("mongodb://127.0.0.1:27017?replicaSet=rs0", {
+    //       // useCreateIndex: true,
+    //       // useFindAndModify: false,
+    //       useNewUrlParser: true,
+    //       useUnifiedTopology: true,
+    //       dbName: "prodDb"
+    //     })
+    //     this.prod.on("connected", () => {
+    //       console.log('mongodb connect prod success')
+    //     })
+    //     this.prod.on("error", () => {
+    //       console.log('mongodb connect prod error')
+    //     })
+    //     this.prod.on("disconnected", () => {
+    //       console.log('mongodb connect prod disconnected')
+    //     })
+    //     this.test = mongoose.createConnection("mongodb://127.0.0.1:27017?replicaSet=rs0", {
+    //       // useCreateIndex: true,
+    //       // useFindAndModify: false,
+    //       useNewUrlParser: true,
+    //       useUnifiedTopology: true,
+    //       dbName: "testDb"
+    //     })
+    //     this.test.on("connected", () => {
+    //       console.log('mongodb connect test success')
+    //     })
+    //     this.test.on("error", () => {
+    //       console.log('mongodb connect test error')
+    //     })
+    //     this.test.on("disconnected", () => {
+    //       console.log('mongodb connect test disconnected')
+    //     })
+    //   }
+    //   async mongoSession (dataBase) {
+    //     const session = await dataBase.startSession({
+    //       readPreference: { mode: 'primary' }, //只从主节点读取，默认值。
+    //     })
+    //     await session.startTransaction({
+    //       readConcern: { level: 'majority' }, //读取在大多数节点上提交完成的数据。level:"snapshot"读取最近快照中的数据。
+    //       writeConcern: { w: 'majority' }, //大多数节点成功原则，例如一个复制集 3 个节点，2 个节点成功就认为本次写入成功。 w:"all"所以节点都成功，才认为写入成功，效率较低。
+    //     })
+    //     return session
+    //   }
+    // }`)
+    //     }
     if (!fs.existsSync(dir + "/middleware.ts")) {
       fs.writeFileSync(dir + "/middleware.ts", `import { Middleware } from "zyd-server-framework-ts"
 @Middleware([
@@ -120,29 +143,29 @@ class Middlewares {
   }
 }`)
     }
-//     if (!fs.existsSync(dir + "/model.ts")) {
-//       fs.writeFileSync(dir + "/model.ts", `import mongoose from "mongoose"
-// import { Model } from "zyd-server-framework-ts"
-// @Model()
-// class Users {
-//   prod: any
-//   test: any
-//   constructor() {
-//     const schema = new mongoose.Schema({
-//       name: { type: String },
-//       age: { type: Number }
-//     }, {
-//       versionKey: false,
-//       timestamps: {
-//         createdAt: "createdAt",
-//         updatedAt: "updatedAt"
-//       }
-//     })
-//     this.prod = this.dataBase.Mongo.prod.model("users", schema, "users")
-//     this.test = this.dataBase.Mongo.test.model("users", schema, "users")
-//   }
-// }`)
-//     }
+    //     if (!fs.existsSync(dir + "/model.ts")) {
+    //       fs.writeFileSync(dir + "/model.ts", `import mongoose from "mongoose"
+    // import { Model } from "zyd-server-framework-ts"
+    // @Model()
+    // class Users {
+    //   prod: any
+    //   test: any
+    //   constructor() {
+    //     const schema = new mongoose.Schema({
+    //       name: { type: String },
+    //       age: { type: Number }
+    //     }, {
+    //       versionKey: false,
+    //       timestamps: {
+    //         createdAt: "createdAt",
+    //         updatedAt: "updatedAt"
+    //       }
+    //     })
+    //     this.prod = this.dataBase.Mongo.prod.model("users", schema, "users")
+    //     this.test = this.dataBase.Mongo.test.model("users", schema, "users")
+    //   }
+    // }`)
+    //     }
     if (!fs.existsSync(dir + "/plugin.ts")) {
       fs.writeFileSync(dir + "/plugin.ts", `import { Plugin } from "zyd-server-framework-ts"
 @Plugin()
