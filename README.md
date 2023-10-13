@@ -31,15 +31,14 @@ app.start()
 bun run index.ts
 ```
 ```bash
-2023-10-13 08:42:23 [middleware] Middlewares.error
-2023-10-13 08:42:23 [schedule] Index.handler
-2023-10-13 08:42:23 [plugin] Utils
-2023-10-13 08:42:23 [dataBase] Mongo
-2023-10-13 08:42:23 [controller] User
-2023-10-13 08:42:23 [service] User
-2023-10-13 08:42:23 [router] GET /User/getUser
-2023-10-13 08:42:23 [router] PUT /User/updateUser
-2023-10-13 08:42:23 [model] Users
+2023-10-13 14:37:03 [middleware] Middlewares.error
+2023-10-13 14:37:03 [schedule] Index.handler
+2023-10-13 14:37:03 [plugin] Utils
+2023-10-13 14:37:03 [controller] User
+2023-10-13 14:37:03 [controller.middleware] User.validationToken
+2023-10-13 14:37:03 [service] User
+2023-10-13 14:37:03 [function.middleware] User.getUser.validationName
+2023-10-13 14:37:03 [router] GET /partner/api/User/getUser
 
 start on port: 3000
 ```

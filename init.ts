@@ -23,17 +23,17 @@ export default class Init {
 import assert from "http-assert"
 @Controller("", {
   middlewares: [
-    async function invalidToken(ctx, next) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
+    async function validationToken(ctx: any, next: any) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
       assert(ctx.header.token, 408, "invalid token")
       ctx.state.token = ctx.header.token
       await next()
     }
   ]
 })
-export class User extends GeneralClass {
+class User extends GeneralClass {
   @Get("", {
     middlewares: [
-      async function validation (ctx, next) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
+      async function validationName (ctx: any, next: any) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
         const name = ctx.request.query.name
         assert(name, 400, "Missing name")
         await next()
@@ -48,7 +48,7 @@ export class User extends GeneralClass {
     if (!fs.existsSync(dir + "/service.ts")) {
       fs.writeFileSync(dir + "/service.ts", `import { Service } from "zyd-server-framework-ts"
 @Service()
-export class User {
+class User {
   getUser() {
     return { name: "UserName" }
   }
@@ -113,10 +113,10 @@ export class User {
   "error",
 ])
 class Middlewares {
-  async error (ctx, next) {
+  async error (ctx: any, next: any) {
     try {
       await next()
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
       const code = err.status || 500
       const message = err.response && err.response.data || err.message
@@ -163,7 +163,7 @@ class Utils {
      * @returns 
      * @example new Date().format("yyyy-MM-dd")
      */
-    Date.prototype.format = function (fmt) {
+    Date.prototype.format = function (fmt: string = "yyyy-MM-dd"): string {
       // 将当前
       var o = {
         "M+": this.getMonth() + 1, //月份 
@@ -186,11 +186,11 @@ class Utils {
    * 阻塞函数
    * @param {Number} milliSeconds 毫秒数 
    */
-  sleep(milliSeconds) {
+  sleep(milliSeconds: number): void {
     const startTime = new Date().getTime()
     while (new Date().getTime() < startTime + milliSeconds) { }
   }
-  getClientIp(req) {//获取客户端ip地址
+  getClientIp(req: any): string {//获取客户端ip地址
     let ip = req.headers['x-forwarded-for'] ||
       req.ip ||
       req.connection.remoteAddress ||
