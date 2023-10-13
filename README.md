@@ -28,7 +28,7 @@ const app = new Zsf()
 app.start()
 ```
 ```bash
-bun run index.ts
+bun --watch index.ts
 ```
 ```bash
 2023-10-13 14:37:03 [middleware] Middlewares.error
