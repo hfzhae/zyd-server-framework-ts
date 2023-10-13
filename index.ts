@@ -6,7 +6,7 @@
 import { ZsfConstructorOptions, ZsfInterface } from "./interface"
 import Init from "./init"
 import Loader from "./loader"
-import { router, middlewares, Service, Controller, Get, GeneralClass } from "./loader"
+import { router, middlewares, Service, Model, Config, DataBase, Plugin, Middleware, Schedule, Controller, Head, Opitons, Get, Put, Patch, Post, Delete, GeneralClass } from "./loader"
 import Koa from "koa"
 import koaBodyparser from "koa-bodyparser"
 import { resolve } from "path"
@@ -46,7 +46,11 @@ export default class Zsf implements ZsfInterface {
      * 后置初始化数据调用点（异步）
      */
     process.nextTick(() => {
-      if (options && options.afterInit) options.afterInit(this.koa)
+      process.nextTick(() => {
+        process.nextTick(() => {
+          if (options && options.afterInit) options.afterInit(this.koa)
+        })
+      })
     })
   }
   public start(port: number = 3000, callBack: Function = () => {
@@ -63,5 +67,5 @@ export default class Zsf implements ZsfInterface {
   }
 }
 export {
-  Service, Controller, Get, GeneralClass
+  Service, Model, Config, DataBase, Plugin, Middleware, Schedule, Controller, Head, Opitons, Get, Put, Patch, Post, Delete, GeneralClass
 }

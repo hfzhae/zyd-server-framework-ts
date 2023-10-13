@@ -5,10 +5,19 @@
 ```bash
 bun init -y
 ```
+>tsconfig.json
+```json
+{
+  "compilerOptions": {
+    ...
+    "experimentalDecorators": true,
+    ...
+  }
+}
+```
 ```bash
 bun add zyd-server-framework-ts
 ```
-
 ## Quickstart
 
 > index.ts
@@ -21,22 +30,26 @@ app.start()
 ```bash
 bun run index.ts
 ```
-```
-┌─────────────────────────┐
-│ Powered by zydsoft®     │
-│ zyd-server-framework-ts │
-└─────────────────────────┘
-version：0.0.5
-
-2023-10-12 15:04:20 [controller]  User
-2023-10-12 15:04:20 [service] User
-2023-10-12 15:04:20 [router]  GET /User/getUser
+```bash
+2023-10-13 08:42:23 [middleware] Middlewares.error
+2023-10-13 08:42:23 [schedule] Index.handler
+2023-10-13 08:42:23 [plugin] Utils
+2023-10-13 08:42:23 [dataBase] Mongo
+2023-10-13 08:42:23 [controller] User
+2023-10-13 08:42:23 [service] User
+2023-10-13 08:42:23 [router] GET /User/getUser
+2023-10-13 08:42:23 [router] PUT /User/updateUser
+2023-10-13 08:42:23 [model] Users
 
 start on port: 3000
-
-┌───────────────┐
-│ start success │
-└───────────────┘
+```
+```
+http://127.0.0.1:3000/user/getuser
+```
+```json
+{
+  "name": "UserName"
+}
 ```
 This project was created using `bun init` in bun v1.x. [Bun](https://bun.sh)
 is a fast all-in-one JavaScript runtime.
