@@ -6,6 +6,9 @@ export default class Examples {
    * @param {String} dir 默认路径 
    */
   public createExamplesFile(dir: string): void {
+    /**
+     * 在tsconfig.json其中装饰器，以避免不必要的报错信息
+     */
     const jsonData = JSON.parse(fs.readFileSync(dir + "/tsconfig.json", 'utf-8').replace("// add Bun global", ""));
     jsonData.compilerOptions.experimentalDecorators = true
     fs.writeFileSync(dir + "/tsconfig.json", JSON.stringify(jsonData, null, 2), 'utf-8');
@@ -21,8 +24,8 @@ import assert from "http-assert"
 @Controller("", {
   middlewares: [
     async function validationToken(ctx: any, next: any) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
-      assert(ctx.header.token, 408, "invalid token")
-      ctx.state.token = ctx.header.token
+      assert(ctx.header.Authorization, 408, "invalid token")
+      ctx.state.token = ctx.header.Authorization
       await next()
     }
   ]
