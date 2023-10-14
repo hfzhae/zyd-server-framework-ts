@@ -7,7 +7,7 @@ import { ZsfConstructorOptions, ZsfInterface } from "./interface"
 import Init from "./init"
 import Loader from "./loader"
 import { Service, Model, Config, DataBase, Plugin, Middleware, Schedule, Controller, Head, Opitons, Get, Put, Patch, Post, Delete, GeneralClass } from "./loader"
-import Koa from "koa"
+import Koa from "koa2"
 import koaBodyparser from "koa-bodyparser"
 import { resolve } from "path"
 export default class Zsf implements ZsfInterface {
