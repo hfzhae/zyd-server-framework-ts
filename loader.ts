@@ -18,7 +18,7 @@ let opt: ZsfConstructorOptions
  * @returns 
  * @example new Date().format("yyyy-MM-dd")
  */
-Date.prototype["format"] = function (fmt = "yyyy-MM-dd hh:mm:ss"): string {
+Date.prototype.format = function (fmt = "yyyy-MM-dd hh:mm:ss"): string {
   var o = {
     "M+": this.getMonth() + 1, //月份 
     "d+": this.getDate(), //日 
@@ -65,7 +65,7 @@ const classDecorate = (moduleName: string) => (target: any) => {
     opt.app[moduleName] = []
   }
   opt.app[moduleName][target.name] = new target()
-  console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[${moduleName}]\x1B[0m \x1B[32m${target.name}\x1B[0m`)
+  console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[${moduleName}]\x1B[0m \x1B[32m${target.name}\x1B[0m`)
   process.nextTick(() => {
     process.nextTick(() => {
       injectApp(target)
@@ -94,7 +94,7 @@ const functionDecorate = (method: string, url: string = "", router: Router, opti
         mid[mid.name] = mid
       }
       mids.push(async (ctx, next) => await mid[mid.name](ctx, next))
-      console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[function.middleware]\x1B[0m \x1B[0m\x1B[32m${target.constructor.name}.${property}.${mid.name || index}\x1B[0m`)
+      console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[function.middleware]\x1B[0m \x1B[0m\x1B[32m${target.constructor.name}.${property}.${mid.name || index}\x1B[0m`)
       process.nextTick(() => {
         process.nextTick(() => {
           injectApp(mid)
@@ -114,7 +114,7 @@ const functionDecorate = (method: string, url: string = "", router: Router, opti
     router[method](url, ...mids)
     target[property].method = method
     target[property].url = url
-    console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[router]\x1B[0m \x1B[32m${method.toLocaleUpperCase()} ${url}\x1B[0m`)
+    console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[router]\x1B[0m \x1B[32m${method.toLocaleUpperCase()} ${url}\x1B[0m`)
   })
 }
 
@@ -128,7 +128,7 @@ export const Controller = (prefix?: string, options?: ControllerOptions) => (tar
   injectApp(target)
   new target()
   prefix && (target.prototype.prefix = prefix)
-  console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[controller]\x1B[0m \x1B[0m\x1B[32m${target.name}\x1B[0m`)
+  console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[controller]\x1B[0m \x1B[0m\x1B[32m${target.name}\x1B[0m`)
   if (options?.middlewares) { // 是否配置了中间件
     if (!target.prototype.middlewares) {
       target.prototype.middlewares = []
@@ -140,7 +140,7 @@ export const Controller = (prefix?: string, options?: ControllerOptions) => (tar
         mid[mid.name] = mid
       }
       target.prototype.middlewares.push(async (ctx, next) => await mid[mid.name](ctx, next))
-      console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[controller.middleware]\x1B[0m \x1B[0m\x1B[32m${target.name}.${mid.name || index}\x1B[0m`)
+      console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[controller.middleware]\x1B[0m \x1B[0m\x1B[32m${target.name}.${mid.name || index}\x1B[0m`)
       process.nextTick(() => {
         process.nextTick(() => {
           injectApp(mid)
@@ -171,7 +171,7 @@ export const Model: Function = () => (target: any) => { // 模型，为了确保
         //   process.nextTick(() => {
         //     process.nextTick(() => {
         opt.app["model"][target.name] = new target()
-        console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[${"model"}]\x1B[0m \x1B[32m${target.name}\x1B[0m`)
+        console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[${"model"}]\x1B[0m \x1B[32m${target.name}\x1B[0m`)
         //     })
         //   })
         // })
@@ -193,7 +193,7 @@ export const Middleware: Function = (mids: Array<Router> = []) => (target: any) 
   mids.forEach(mid => {
     if (midObj[mid]) {
       middlewares.push(async (ctx, next) => midObj[mid](ctx, next))
-      console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[middleware]\x1B[0m \x1B[0m\x1B[32m${target.name}.${mid}\x1B[0m`)
+      console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[middleware]\x1B[0m \x1B[0m\x1B[32m${target.name}.${mid}\x1B[0m`)
     }
   })
   process.nextTick(() => {
@@ -209,7 +209,7 @@ export const Middleware: Function = (mids: Array<Router> = []) => (target: any) 
 export const Schedule: Function = (interval: string) => (target: any, property: string) => {
   if (interval) {
     schedule.scheduleJob(interval, () => target[property]())
-    console.log(`\x1B[30m${new Date()["format"]("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[schedule]\x1B[0m \x1B[0m\x1B[32m${target.constructor.name}.${property}\x1B[0m`)
+    console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[schedule]\x1B[0m \x1B[0m\x1B[32m${target.constructor.name}.${property}\x1B[0m`)
     process.nextTick(() => {
       process.nextTick(() => {
         injectApp(target.constructor)

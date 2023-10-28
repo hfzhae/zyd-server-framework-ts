@@ -1,5 +1,5 @@
 import fs from "fs"
-import { execSync } from "child_process"
+// import { execSync } from "child_process"
 export default class Examples {
   /**
    * 示例生成方法
@@ -24,8 +24,8 @@ import assert from "http-assert"
 @Controller("", {
   middlewares: [
     async function validationToken(ctx: any, next: any) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
-      assert(ctx.header.Authorization, 408, "invalid token")
-      ctx.state.token = ctx.header.Authorization
+      assert(ctx.header.authorization, 408, "invalid token")
+      ctx.state.token = ctx.header.authorization
       await next()
     }
   ]
@@ -169,7 +169,7 @@ class Utils {
      * @returns 
      * @example new Date().format("yyyy-MM-dd")
      */
-    Date.prototype["format"] = function (fmt: string = "yyyy-MM-dd"): string {
+    Date.prototype.format = function (fmt: string = "yyyy-MM-dd"): string {
       // 将当前
       var o = {
         "M+": this.getMonth() + 1, //月份 
