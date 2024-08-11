@@ -1,7 +1,9 @@
 import { LoaderConstructorOptions, ControllerOptions, ZsfConstructorOptions } from './interface'
 import fs from 'fs'
 import path from 'path'
+//@ts-ignore
 import Router from 'koa-router'
+//@ts-ignore
 import schedule from "node-schedule"
 const router = new Router()
 const middlewares: Array<Router> = []
@@ -27,6 +29,7 @@ Date.prototype.format = function (fmt = "yyyy-MM-dd hh:mm:ss"): string {
   if (/(y+)/.test(fmt)) fmt = fmt?.replace(RegExp.$1, (this.getFullYear() + "").substring(4 - RegExp.$1.length))
   // 再依次替换其他时间日期内容
   for (var k in o)
+    //@ts-ignore
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt?.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substring(("" + o[k]).length)))
   return fmt
 }
@@ -48,7 +51,7 @@ const injectApp = (target: any) => {
  * @param moduleName 
  * @returns {Function} 
  */
-const injectClass = (moduleName) => () => classDecorate(moduleName)
+const injectClass = (moduleName: string) => () => classDecorate(moduleName)
 /**
  * 类装饰器工厂
  * @param moduleName 
@@ -79,7 +82,7 @@ const injectFunction = (method: string) => (url?: string, options?: any) => func
  * @param param0 
  * @returns 
  */
-const functionDecorate = (method: string, url: string = "", router: Router, options: any = {}) => (target: any, property: string, descriptor) => {
+const functionDecorate = (method: string, url: string = "", router: Router, options: any = {}) => (target: any, property: string, descriptor: any) => {
   process.nextTick(() => {
     const mids: Array<Router> = []
     target.middlewares && mids.push(...target.middlewares)
@@ -89,7 +92,7 @@ const functionDecorate = (method: string, url: string = "", router: Router, opti
       } else {
         mid[mid.name] = mid
       }
-      mids.push(async (ctx, next) => await mid[mid.name](ctx, next))
+      mids.push(async (ctx: any, next: any) => await mid[mid.name](ctx, next))
       //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[function.middleware]\x1B[0m \x1B[0m\x1B[32m${target.constructor.name}.${property}.${mid.name || index}\x1B[0m`)
       process.nextTick(() => {
@@ -98,7 +101,7 @@ const functionDecorate = (method: string, url: string = "", router: Router, opti
         })
       })
     })
-    mids.push(async (ctx, next) => { ctx.body = await target[property](ctx, next) })
+    mids.push(async (ctx: any, next: any) => { ctx.body = await target[property](ctx, next) })
     if (!url) {
       url = `/${target.constructor.name}/${property}` // 路由后缀
     } else if (url === "/") {
@@ -138,7 +141,7 @@ export const Controller = (prefix?: string, options?: ControllerOptions) => (tar
       } else {
         mid[mid.name] = mid
       }
-      target.prototype.middlewares.push(async (ctx, next) => await mid[mid.name](ctx, next))
+      target.prototype.middlewares.push(async (ctx: any, next: any) => await mid[mid.name](ctx, next))
       //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[controller.middleware]\x1B[0m \x1B[0m\x1B[32m${target.name}.${mid.name || index}\x1B[0m`)
       process.nextTick(() => {
@@ -193,7 +196,7 @@ export const Middleware: Function = (mids: Array<Router> = []) => (target: any) 
   const midObj = new target()
   mids.forEach(mid => {
     if (midObj[mid]) {
-      middlewares.push(async (ctx, next) => midObj[mid](ctx, next))
+      middlewares.push(async (ctx: any, next: any) => midObj[mid](ctx, next))
       //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[middleware]\x1B[0m \x1B[0m\x1B[32m${target.name}.${mid}\x1B[0m`)
     }
