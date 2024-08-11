@@ -1,6 +1,6 @@
 {
   "name": "zyd-server-framework-ts",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "description": "基于bun,koa的server端框架，使用TS语言",
   "module": "index.ts",
   "type": "module",
@@ -25,6 +25,7 @@
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.1",
     "koa-router": "^11.0.2",
+    "koa2-cors": "^2.0.6",
     "node-schedule": "^2.1.1"
   }
 }

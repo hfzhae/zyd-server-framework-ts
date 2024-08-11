@@ -18,8 +18,9 @@ export default class Examples {
       fs.mkdirSync(dir)
     }
     if (!fs.existsSync(dir + "/controller.ts")) {
+      //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[create.examples]\x1B[0m \x1B[0m\x1B[32m${dir}/controller.ts\x1B[0m`)
-      fs.writeFileSync(dir + "/controller.ts", `import { Controller, Get, GeneralClass } from "zyd-server-framework-ts"
+      fs.writeFileSync(dir + "/controller.ts", `import { Controller, Get } from "zyd-server-framework-ts"
 import assert from "http-assert"
 @Controller("", {
   middlewares: [
@@ -30,7 +31,8 @@ import assert from "http-assert"
     }
   ]
 })
-class User extends GeneralClass {
+class User {
+  [x: string]: any
   @Get("", {
     middlewares: [
       async function validationName (ctx: any, next: any) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
@@ -46,6 +48,7 @@ class User extends GeneralClass {
 }`)
     }
     if (!fs.existsSync(dir + "/service.ts")) {
+      //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[create.examples]\x1B[0m \x1B[0m\x1B[32m${dir}/service.ts\x1B[0m`)
       fs.writeFileSync(dir + "/service.ts", `import { Service } from "zyd-server-framework-ts"
 @Service()
@@ -111,6 +114,7 @@ class User {
 // }`)
 //     }
     if (!fs.existsSync(dir + "/middleware.ts")) {
+      //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[create.examples]\x1B[0m \x1B[0m\x1B[32m${dir}/middleware.ts\x1B[0m`)
       fs.writeFileSync(dir + "/middleware.ts", `import { Middleware } from "zyd-server-framework-ts"
 @Middleware([
@@ -158,6 +162,7 @@ class Middlewares {
 // }`)
 //     }
     if (!fs.existsSync(dir + "/plugin.ts")) {
+      //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[create.examples]\x1B[0m \x1B[0m\x1B[32m${dir}/plugin.ts\x1B[0m`)
       fs.writeFileSync(dir + "/plugin.ts", `import { Plugin } from "zyd-server-framework-ts"
 @Plugin()
@@ -211,6 +216,7 @@ class Utils {
 }`)
     }
     if (!fs.existsSync(dir + "/schedule.ts")) {
+      //@ts-ignore
       console.log(`\x1B[30m${new Date().format("yyyy-MM-dd hh:mm:ss")}\x1B[0m \x1B[33m[create.examples]\x1B[0m \x1B[0m\x1B[32m${dir}/schedule.ts\x1B[0m`)
       fs.writeFileSync(dir + "/schedule.ts", `import { Schedule } from "zyd-server-framework-ts"
 class Index {
