@@ -100,7 +100,7 @@ Schedule|interval|app|定义定时器对象，interval(String)定时器规则cro
 name|desc|usage
 -|-|-
 config|配置对象数组，对应Config装饰器对象|this.config
-dataBase|数据库连接对象数组，对应DataBase装饰器对象|this.dataBase
+db|数据库连接对象数组，对应DataBase装饰器对象|this.db
 model|模块对象数组，对应Model装饰器对象|this.model
 plugin|插件对象数组，对应Plugin装饰器对象|this.plugin
 service|服务对象数组，对应Service装饰器对象|this.service
@@ -206,8 +206,8 @@ class Mongo {
 }
 ```
 ```js
-this.dataBase.Mongo.prod
-this.dataBase.Mongo.test
+this.db.Mongo.prod
+this.db.Mongo.test
 ```
 >/dataBase/mssql.js
 ```js
@@ -299,8 +299,8 @@ class Users {
         updatedAt: "updatedAt"
       }
     })
-    this.prod = this.dataBase.Mongo.prod.model("users", schema, "users")
-    this.test = this.dataBase.Mongo.test.model("users", schema, "users")
+    this.prod = this.db.Mongo.prod.model("users", schema, "users")
+    this.test = this.db.Mongo.test.model("users", schema, "users")
   }
 }
 ```
