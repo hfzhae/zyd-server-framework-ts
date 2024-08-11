@@ -124,7 +124,7 @@ this.config.Index.path
 ## Controller
 >/examples/controller.js
 ```js
-import { Controller, Get, GeneralClass } from "../index"
+import { Controller, Get } from "../index"
 import assert from "http-assert"
 @Controller("api", {
   middlewares: [
@@ -135,7 +135,8 @@ import assert from "http-assert"
     }
   ]
 })
-class User extends GeneralClass {
+class User {
+  [x: string]: any
   @Get("", {
     middlewares: [
       async function validationName(ctx: any, next: any) { // 此处不能使用尖头函数，否则无法通过this获取全局模块数组
